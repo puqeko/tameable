@@ -1,0 +1,9 @@
+{
+  "name": "tameable",
+  "version": "1.0.0",
+  "description": "Simple & small functional framework for tameing interdependent code",
+  "main": "tameable.js",
+  "repository": "https://github.com/puqeko/tameable",
+  "author": "puqeko",
+  "license": "MIT"
+}
