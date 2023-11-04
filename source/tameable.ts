@@ -83,7 +83,7 @@ export const isolatedNamespace = (): Tameable => {
     const o = namespace.get(key);
     if (o.state === VALID) return o.obj;
     if (o.state === VALIDATING) return o.promise; // if this node is currently awaiting validation then await that promise instead of validating again
-    if (DEBUG && o.state === ERROR) throw Error(`'${key}' has a previous error. Check your error handeling. Are you calling 'once' repeatadly or forgetting to await?`);
+    if (DEBUG && o.state === ERROR) throw Error(`'${key}' has a previous error\nCheck your error handeling. Are you calling 'once' repeatadly and forgetting to await?`);
     o.state = VALIDATING;
     o.promise = Promise.all(o.deps.map(validate))  // make sure requirements met
       .then(objs => o.fn(...objs));  // run function with requirements as arguments 
@@ -92,7 +92,7 @@ export const isolatedNamespace = (): Tameable => {
     if (o.obj === null || typeof o.obj !== 'object') {  // must be non-null object to be valid
       o.state = ERROR;
       if (DEBUG && o.obj === undefined)  // provide more helpful message if nothing returned by fn
-        throw Error(`Did you forget to return an object for '${key}'? Use \`tame.SUCCESS\` if returning nothing is intended`);
+        throw Error(`did you forget to return an object for '${key}'?\nuse \`tame.SUCCESS\` if returning nothing is intended`);
       throw Error(`'${key}' failed to validate: expected non-null object, got '${o.obj}'`);
     }
     o.state = VALID;
@@ -118,7 +118,7 @@ export const isolatedNamespace = (): Tameable => {
         if (!key) throw Error('spec objects require a key');
         if (!(typeof key === 'string')) throw Error('key must be a string');
         if (namespace.has(key)) throw Error(`key '${key}' is taken`);
-        for (const d of deps)
+        for (const d of deps)  // enforce no cycles
           if (!namespace.has(d)) throw Error(`'${d}' must exist before '${key}' can depend on it`);
         if ((new Set(deps)).size !== deps.length) throw Error(`'${key}' has duplicate dependancies`);
         if (typeof fn !== 'function') throw Error(`'${key}' must have a function that returns an object`);

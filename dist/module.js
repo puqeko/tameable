@@ -16,7 +16,7 @@ const $d114aaa1712d452c$export$9d8d4571f3cb93c8 = ()=>{
         const o = namespace.get(key);
         if (o.state === $d114aaa1712d452c$var$VALID) return o.obj;
         if (o.state === $d114aaa1712d452c$var$VALIDATING) return o.promise; // if this node is currently awaiting validation then await that promise instead of validating again
-        if ($d114aaa1712d452c$var$DEBUG && o.state === $d114aaa1712d452c$var$ERROR) throw Error(`'${key}' has a previous error. Check your error handeling. Are you calling 'once' repeatadly or forgetting to await?`);
+        if ($d114aaa1712d452c$var$DEBUG && o.state === $d114aaa1712d452c$var$ERROR) throw Error(`'${key}' has a previous error\nCheck your error handeling. Are you calling 'once' repeatadly and forgetting to await?`);
         o.state = $d114aaa1712d452c$var$VALIDATING;
         o.promise = Promise.all(o.deps.map(validate)) // make sure requirements met
         .then((objs)=>o.fn(...objs)); // run function with requirements as arguments 
@@ -24,7 +24,7 @@ const $d114aaa1712d452c$export$9d8d4571f3cb93c8 = ()=>{
         o.promise = undefined;
         if (o.obj === null || typeof o.obj !== "object") {
             o.state = $d114aaa1712d452c$var$ERROR;
-            if ($d114aaa1712d452c$var$DEBUG && o.obj === undefined) throw Error(`Did you forget to return an object for '${key}'? Use \`tame.SUCCESS\` if returning nothing is intended`);
+            if ($d114aaa1712d452c$var$DEBUG && o.obj === undefined) throw Error(`did you forget to return an object for '${key}'?\nuse \`tame.SUCCESS\` if returning nothing is intended`);
             throw Error(`'${key}' failed to validate: expected non-null object, got '${o.obj}'`);
         }
         o.state = $d114aaa1712d452c$var$VALID;

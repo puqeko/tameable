@@ -128,7 +128,7 @@ When invalidate is called,
   these objects will be, or are being, reconstructed anyway.
 
 # Debug mode
-Unless the library is bundled for production, extra checks will be performed and errors omitted for common mistakes such as forgetting to return a value from `fn` or creating a dependency on a key which doesn't yet exist (thus preventing circular dependencies). This features assumes a bundler and minifier will replace `process.env.NODE_ENV !== 'production'` with `true` and unreachable code will be optimised away, which it should. As such, errors in production code are less likley to be helpful. An error is only thrown in production if an objects `fn` returns a non-null object.
+Unless the library is bundled for production, extra checks will be performed and errors omitted for common mistakes such as forgetting to return a value from `fn` or creating a dependency on a key which doesn't yet exist (thus preventing circular dependencies). This features assumes a bundler and minifier will replace `process.env.NODE_ENV !== 'production'` with `false` and unreachable code will be optimised away, which it should. As such, errors in production code are less likley to be helpful. An error is only thrown in production if an objects `fn` returns a non-null object.
 
 # Future features to consider
  - Tree analysis
