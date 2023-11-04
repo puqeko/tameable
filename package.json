@@ -2,8 +2,22 @@
   "name": "tameable",
   "version": "1.0.0",
   "description": "Simple & small functional framework for tameing interdependent code",
-  "main": "tameable.js",
+  "source": "source/tameable.ts",
+  "main": "dist/main.js",
+  "module": "dist/module.js",
+  "types": "dist/types.d.ts",
   "repository": "https://github.com/puqeko/tameable",
   "author": "puqeko",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "build": "parcel build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@parcel/packager-ts": "2.10.2",
+    "@parcel/transformer-typescript-types": "2.10.2",
+    "@types/node": "^20.8.10",
+    "parcel": "^2.10.2",
+    "typescript": "^5.2.2"
+  }
 }
